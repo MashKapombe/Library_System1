@@ -1,0 +1,71 @@
+{% load static tailwind_tags %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% tailwind_css %}
+</head>
+<body class="bg-gradient-to-r from-[#A2333D] to-[#3659A0]">
+    <nav class="relative w-full bg-[#343a40]">
+        <!--container-->
+        <div class="flex p-1">
+            <!--library name-->
+            <div class="flex ml-0 my-auto">
+                <a class="text-[#CFF400]" href="#">Library System</a>
+            </div>
+            <button data-collapse-toggle="navbar-default" type="button"
+            class="inline-flex justify-start ml-auto items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-default" aria-expanded="false">
+            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                    clip-rule="evenodd"></path>
+            </svg>
+        </button>
+            <!--menu items-->
+            <div class="hidden lg:flex space-x-6 mx-auto">
+                <a href="#">Home</a>
+                <a href="#">About Us</a>
+                <a href="#">Contact Us</a>
+            </div>
+        
+        </div>
+    </nav>
+    <!--main-->
+    <div class="container min-h-screen bg-black max-w-sm mx-auto pt-28 lg:pt-2 flex-1 flex flex-col items-center">
+        <div class="text-center">
+            <h2 class="text-white text-[28px] pt-2">STAFF SIGNUP</h2>
+            <p class="text-gray-500 text-[12px] pt-2">Please enter your details to create account!</p>
+        </div>
+        <div class="w-full">
+            <form class="px-4" method="POST" action="">
+                {% csrf_token %}
+                <div class="mt-7">
+                    <input class="shadow border rounded py-2 text-[14px] pl-2"  name="uname" type="text" placeholder="Enter User Name">
+                </div>
+                <div class="mt-7 flex flex-row">
+                    <input class="shadow border rounded py-2 text-[14px] pl-1 mr-1" name="fname" type="text" placeholder="Enter First Name">
+                    <input class="shadow border rounded py-2 text-[14px] pl-1 mr-1" name="lname" type="text" placeholder="Enter Last Name">
+                </div>
+                <div class="mt-7">
+                    <input class="shadow border rounded py-2 text-[14px] pl-2 w-full" name="email" type="text" placeholder="Enter Email Address">
+                </div>
+                <div class="mt-7">
+                    <input class="shadow border rounded py-2 text-[14px] pl-2 w-full" name="phone" type="text" placeholder="Enter Contact Number">
+                </div>
+                <div class="mt-7">
+                    <input class="shadow border rounded py-2 text-[14px] pl-2 w-full" name="pass" type="text" placeholder="Enter Password">
+                </div>
+
+                <button id="register" class="flex self-center text-center border border-[#2BAF63] hover:bg-[#2BAF63] rounded-2xl text-white px-6 py-2 mt-6 mx-auto text-[12px]">Register</button>
+
+                <div class="text-white text-[14px] mt-4 text-center">Already have an account?<a class="underline pl-1 text-blue-400" href="login.html">Login</a></div>
+            </form>
+        </div>
+          
+    </div>
+  
+</body>
+</html>
