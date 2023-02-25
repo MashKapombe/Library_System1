@@ -1,4 +1,5 @@
 {% load static tailwind_tags %}
+
 <!doctype html>
 <html>
 <head>
@@ -6,11 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% tailwind_css %}
 </head>
-<body class="bg-[#042331] w-full overscroll-x-none">
-    <div class="flex flex-row-2 min-h-screen w-full ">
+<body class="bg-[#042331]">
+    <div class="flex flex-row-2 min-h-screen w-full">
         <div class="flex flex-col">
             <button data-collapse-toggle="navbar-default" type="button"
-                class="inline-flex justify-start mr-auto items-center p-2 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                class="inline-flex justify-start mr-auto items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 aria-controls="navbar-default" aria-expanded="false">
                 <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
@@ -22,11 +23,11 @@
             <div class="w-48 sm:px-6 lg:px-2 text-white mt-4 lg:mt-8 hidden lg:flex">
                 <table class="w-full">
                     <tr class="border-b border-black hover:bg-[#063146]">
-                        <th class="py-4 text-[16px]"><a href="#" class="">Library System</a></th>
+                        <th class= "py-4 text-[16px]"><a href="#" class="">Library System</a></th>
                     </tr>
 
                     <tr class="border-b border-black hover:bg-[#063146]">
-                        <td class="py-4 text-[14px] px-4"><a class="inline-flex" href="/dashboard/">
+                        <td class="py-4 text-[14px] px-4"><a class="inline-flex" href="dashboard.html">
                                 <svg class="w-4 h-4 inline-flex" fill="none" stroke="currentColor" stroke-width="1.5"
                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -91,7 +92,7 @@
                                 Return Book</a></td>
                     </tr>
                     <tr class="border-b border-black hover:bg-[#063146]">
-                        <td class="py-4 text-[14px] px-4 lg:px-4"><a class="inline-flex" href="/signout/">
+                        <td class="py-4 text-[14px] px-4 lg:px-4"><a class="inline-flex" href="#">
                                 <svg class="w-4 h-4 inline-flex" xmlns="http://www.w3.org/2000/svg" width="16"
                                     height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                                     <path
@@ -105,63 +106,35 @@
             </div>
         </div>
 
-        <div class="flex flex-col w-full">
-            <form class="flex relative justify-end ml-auto my-2 pr-2">
-                <input type="text" placeholder="search by bookid" id="query1" name="query1">
-                <button class="bg-[#DDDDDD] w-30 px-2">Search</button>
-            </form>
-            <div class="w-full min-h-screen bg-white ">
+        <div style="background-image: url('{% static "img/open-textbook.jpg" %}');"
+            class="w-full bg-center bg-fixed bg-no-repeat bg-cover">
+            <div class="flex mt-28 lg:mt-14 w-full justify-center lg:justify-start lg:pl-32">
+                <form class="" method="POST" action="">
+                    {% csrf_token %}
+                    <div class="mb-2">
+                        <label class="block mb-1" for="bookid">Book Id:</label>
+                        <input type="text" class="w-44 rounded" name="bookid" id="bookid" required />
+                    </div>
+                    <div class="mb-2 ">
+                        <label class="block mb-1" for="bookname">Book Name:</label>
+                        <input type="text" name="bookname" id="bookname" class="w-44 rounded" required />
+                    </div>
+                    <div class="mb-2">
+                        <label class="block mb-1" for="subject">Subject:</label>
+                        <input type="text" name="subject" id="subject" class="w-44 rounded" required />
+                    </div>
+                    <div class="mb-2">
+                        <label class="block mb-1" for="status">Status:</label>
+                        <input type="text" name="status" id="status" class="w-44 rounded" required />
+                    </div>
+                    <div class="">
+                        <button class="bg-blue-700 ml-9 mt-4 rounded w-24 text-center">submit</button>
+                    </div>
 
-                <table class="flex justify-center w-full mt-4">
-                    <tr class="grid grid-cols-6 gap-2 lg:gap-6 bg-[#0000FF] w-full text-end border-black text-white">
-                        <th
-                            class="flex w-full h-full self-end ml-auto mt-auto pt-6 lg:pl-8 text-[10px] border-r border-black">
-                            Book Id</th>
-                        <th
-                            class="flex w-full h-full self-end ml-auto mt-auto pt-6 lg:pl-8 text-[10px] border-r border-black">
-                            Book Name</th>
-                        <th
-                            class="flex w-full h-full self-end ml-auto mt-auto pt-6 lg:pl-8 text-[10px] border-r border-black">
-                            Subject</th>
-                        <th
-                            class="flex w-full h-full self-end ml-auto mt-auto pt-6 lg:pl-8 text-[10px] border-r border-black">
-                            Status</th>
-                        <th
-                            class="flex w-full h-full self-end ml-auto mt-auto pt-6 lg:pl-8 text-[10px] border-r border-black">
-                            Edit</th>
-                        <th class="flex w-full h-full self-end ml-auto mt-auto pt-6 lg:pl-8 text-[10px] border-black">
-                            Delete</th>
-                    </tr>
-                    <tr
-                        class="grid grid-cols-6 gap-2 lg:gap-6 text-left text-[10px] py-2 border-b border-black text-black">
-                        <td>BE123H</td>
-                        <td>Python</td>
-                        <td>Programming</td>
-                        <td>Issued</td>
-                        <td><a href=""><button class="bg-green-600 rounded px-2 lg:px-2 py-2">Edit</button></a></td>
-                        <td><a href=""><button class="bg-red-600 rounded  py-2 px-1 lg:px-2">Delete</button></a></td>
-                    </tr>
-                    <tr
-                        class="grid grid-cols-6 gap-2 lg:gap-6 text-left text-[10px] py-2 border-b border-black text-black">
-                        <td>BE123H1</td>
-                        <td>Java</td>
-                        <td>Programming</td>
-                        <td>Not Issued</td>
-                        <td><a href=""><button class="bg-green-600 rounded px-2 lg:px-2 py-2">Edit</button></a></td>
-                        <td><a href=""><button class="bg-red-600 rounded py-2 px-1 lg:px-2">Delete</button></a></td>
-                    </tr>
-                    <tr
-                        class="grid grid-cols-6 gap-2 lg:gap-6 text-left text-[10px] py-2 border-b border-black text-black">
-                        <td>BE123H1</td>
-                        <td>Java</td>
-                        <td>Programming</td>
-                        <td>Not Issued</td>
-                        <td><a href=""><button class="bg-green-600 rounded px-2 lg:px-2 py-2">Edit</button></a></td>
-                        <td><a href=""><button class="bg-red-600 rounded py-2 px-1 lg:px-2">Delete</button></a></td>
-                    </tr>
-                </table>
+                </form>
 
             </div>
+
         </div>
 
     </div>

@@ -43,20 +43,20 @@
             <form class="px-4" method="POST" action="">
                 {% csrf_token %}
                 <div class="mt-7">
-                    <input class="shadow border rounded py-2 text-[14px] pl-2"  name="uname" type="text" placeholder="Enter User Name">
+                    <input class="shadow border rounded py-2 text-[14px] pl-2"  name="uname" type="text" placeholder="Enter User Name" required>
                 </div>
                 <div class="mt-7 flex flex-row">
-                    <input class="shadow border rounded py-2 text-[14px] pl-1 mr-1" name="fname" type="text" placeholder="Enter First Name">
-                    <input class="shadow border rounded py-2 text-[14px] pl-1 mr-1" name="lname" type="text" placeholder="Enter Last Name">
+                    <input class="shadow border rounded py-2 text-[14px] pl-1 mr-1" name="fname" type="text" placeholder="Enter First Name" required>
+                    <input class="shadow border rounded py-2 text-[14px] pl-1 mr-1" name="lname" type="text" placeholder="Enter Last Name" required>
                 </div>
                 <div class="mt-7">
-                    <input class="shadow border rounded py-2 text-[14px] pl-2 w-full" name="email" type="text" placeholder="Enter Email Address">
+                    <input class="shadow border rounded py-2 text-[14px] pl-2 w-full" name="email" type="text" placeholder="Enter Email Address" required>
                 </div>
                 <div class="mt-7">
-                    <input class="shadow border rounded py-2 text-[14px] pl-2 w-full" name="phone" type="text" placeholder="Enter Contact Number">
+                    <input class="shadow border rounded py-2 text-[14px] pl-2 w-full" name="phone" type="text" placeholder="Enter Contact Number" required>
                 </div>
                 <div class="mt-7">
-                    <input class="shadow border rounded py-2 text-[14px] pl-2 w-full" name="pass" type="text" placeholder="Enter Password">
+                    <input class="shadow border rounded py-2 text-[14px] pl-2 w-full" name="pass" type="text" placeholder="Enter Password" required>
                 </div>
 
                 <button id="register" class="flex self-center text-center border border-[#2BAF63] hover:bg-[#2BAF63] rounded-2xl text-white px-6 py-2 mt-6 mx-auto text-[12px]">Register</button>
