@@ -82,7 +82,7 @@
                     </tr>
 
                     <tr class="border-b border-black hover:bg-[#063146]">
-                        <td class="py-4 text-[14px] px-2 lg:px-4"><a href="/returnbook/">
+                        <td class="py-4 text-[14px] px-2 lg:px-4"><a href="returnbook.html">
                                 <svg class="w-4 h-4 inline-flex" fill="none" stroke="currentColor" stroke-width="1.5"
                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -109,24 +109,17 @@
         <div style="background-image: url('{% static "img/open-textbook.jpg" %}');"
             class="w-full bg-center bg-fixed bg-no-repeat bg-cover">
             <div class="flex mt-28 lg:mt-14 w-full justify-center lg:justify-start lg:pl-32">
-                <form class="" method="POST" action="/addbook/">
+                <form class="" method="POST" action="/addstudent/">
                     {% csrf_token %}
                     <div class="mb-2">
-                        <label class="block mb-1" for="book_id">Book Id:</label>
-                        <input type="text" class="w-44 rounded" name="bkid" id="bkid" required />
+                        <label class="block mb-1" for="studentid">Student Id:</label>
+                        <input type="text" class="w-44 rounded" name="studentid" id="studentid" required />
                     </div>
-                    <div class="mb-2 ">
-                        <label class="block mb-1" for="book_name">Book Name:</label>
-                        <input type="text" name="bkname" id="bkname" class="w-44 rounded" required />
+                    <div class="mb-1">
+                        <label class="block mb-1" for="studentname">Student Name:</label>
+                        <input type="text" class="w-44 rounded" name="studentname" id="studentname" required />
                     </div>
-                    <div class="mb-2">
-                        <label class="block mb-1" for="subject">Subject:</label>
-                        <input type="text" name="subject" id="subject" class="w-44 rounded" required />
-                    </div>
-                    <div class="mb-2">
-                        <label class="block mb-1" for="status">Status:</label>
-                        <input type="text" name="status" id="status" class="w-44 rounded" required />
-                    </div>
+
                     <div class="">
                         <button class="bg-blue-700 ml-9 mt-4 rounded w-24 text-center">submit</button>
                     </div>

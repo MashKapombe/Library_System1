@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% tailwind_css %}
 </head>
+
 <body class="bg-[#042331]">
     <div class="flex flex-row-2 min-h-screen w-full">
         <div class="flex flex-col">
@@ -82,7 +83,7 @@
                     </tr>
 
                     <tr class="border-b border-black hover:bg-[#063146]">
-                        <td class="py-4 text-[14px] px-2 lg:px-4"><a href="/returnbook/">
+                        <td class="py-4 text-[14px] px-2 lg:px-4"><a href="returnbook.html">
                                 <svg class="w-4 h-4 inline-flex" fill="none" stroke="currentColor" stroke-width="1.5"
                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -106,37 +107,26 @@
             </div>
         </div>
 
-        <div style="background-image: url('{% static "img/open-textbook.jpg" %}');"
-            class="w-full bg-center bg-fixed bg-no-repeat bg-cover">
-            <div class="flex mt-28 lg:mt-14 w-full justify-center lg:justify-start lg:pl-32">
-                <form class="" method="POST" action="/addbook/">
-                    {% csrf_token %}
-                    <div class="mb-2">
-                        <label class="block mb-1" for="book_id">Book Id:</label>
-                        <input type="text" class="w-44 rounded" name="bkid" id="bkid" required />
-                    </div>
-                    <div class="mb-2 ">
-                        <label class="block mb-1" for="book_name">Book Name:</label>
-                        <input type="text" name="bkname" id="bkname" class="w-44 rounded" required />
-                    </div>
-                    <div class="mb-2">
-                        <label class="block mb-1" for="subject">Subject:</label>
-                        <input type="text" name="subject" id="subject" class="w-44 rounded" required />
-                    </div>
-                    <div class="mb-2">
-                        <label class="block mb-1" for="status">Status:</label>
-                        <input type="text" name="status" id="status" class="w-44 rounded" required />
-                    </div>
-                    <div class="">
-                        <button class="bg-blue-700 ml-9 mt-4 rounded w-24 text-center">submit</button>
-                    </div>
+            <div class="min-h-screen w-full bg-white">
+                <table class="flex justify-center w-full mt-4">
+                    <tr class="flex flex-row bg-[#0000FF] w-full text-end border-black text-white">
+                        <th class="pl-20 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Student Name</th>
+                        <th class="pl-20 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Student Id</th>
+                    </tr>
 
-                </form>
+                    {% for student in student %}
+                    <tr class="flex flex-row text-[10px] pb-4 pt-2 border-b border-black text-black">
+                        <td class="">{{student.student_id}}</td>
+                        <td class="ml-40">{{student.student_name}}</td>
+                    </tr>
+                    {% endfor %}
+                   
+                </table>
 
-            </div>
 
-        </div>
+            </div> 
 
     </div>
 </body>
+
 </html>
