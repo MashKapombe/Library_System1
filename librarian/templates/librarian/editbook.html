@@ -120,23 +120,23 @@
         <div style="background-image: url('{% static "img/open-textbook.jpg" %}');"
             class="w-full bg-center bg-fixed bg-no-repeat bg-cover">
             <div class="flex mt-28 lg:mt-14 w-full justify-center lg:justify-start lg:pl-32">
-                <form class="" method="POST" action="/addbook/">
+                <form class="" method="POST" action="{% url 'updatebook' book.id %}">
                     {% csrf_token %}
                     <div class="mb-2">
                         <label class="block mb-1" for="book_id">Book Id:</label>
-                        <input type="text" class="w-44 rounded" name="book_id" id="book_id" required />
+                        <input type="text" class="w-44 rounded" name="book_id" id="book_id" value={{book.book_id}} required />
                     </div>
                     <div class="mb-2 ">
                         <label class="block mb-1" for="book_name">Book Name:</label>
-                        <input type="text" name="book_name" id="book_name" class="w-44 rounded" required />
+                        <input type="text" name="book_name" id="book_name" class="w-44 rounded" value={{book.book_name}} required />
                     </div>
                     <div class="mb-2">
                         <label class="block mb-1" for="subject">Subject:</label>
-                        <input type="text" name="subject" id="subject" class="w-44 rounded" required />
+                        <input type="text" name="subject" id="subject" class="w-44 rounded" value={{book.subject}} required />
                     </div>
                     <div class="mb-2">
                         <label class="block mb-1" for="status">Status:</label>
-                        <input type="text" name="status" id="status" class="w-44 rounded" required />
+                        <input type="text" name="status" id="status" class="w-44 rounded" value={{book.status}} required />
                     </div>
                     <div class="">
                         <button class="bg-blue-700 ml-9 mt-4 rounded w-24 text-center">submit</button>

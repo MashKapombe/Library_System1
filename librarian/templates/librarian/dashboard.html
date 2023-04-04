@@ -153,8 +153,8 @@
                         <td data-label="book_name">{{info.book_name}}</td>
                         <td data-label="subject">{{info.subject}}</td>
                         <td data-label="status">{{info.status}}</td>
-                        <td><a href=""><button class="bg-green-600 rounded px-2 lg:px-2 py-2">Edit</button></a></td>
-                        <td><a href=""><button class="bg-red-600 rounded  py-2 px-1 lg:px-2">Delete</button></a></td>
+                        <td><a href="{% url 'editbook' info.id %}"><button class="bg-green-600 rounded px-2 lg:px-2 py-2">Edit</button></a></td>
+                        <td><a href="{% url 'deletebook' info.id %}"><button class="bg-red-600 rounded  py-2 px-1 lg:px-2">Delete</button></a></td>
                         
                     </tr>
                     {% endfor %}

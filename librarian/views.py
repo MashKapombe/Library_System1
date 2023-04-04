@@ -198,21 +198,25 @@ def viewissuedbook(request):
 def returnbook(request):
     return render(request, 'librarian/returnbook.html')
 
-# def search(request):
-#     if 'q' in request.GET:
-#         q = request.GET['q']
-#         book = Book.objects.filter(book_name__icontains=q)
-#     else:   
-#         book = Book.objects.all()
-        
-#     context = {'book':book}
-#     return render(request, 'librarian/dashboard.html', context)
+def editbook(request, id):
+    book = Book.objects.get(id=id)
+    return render(request, 'librarian/editbook.html', {'book':book}) 
 
-# def search(request): 
-#     query = request.POST.get("query",False)
-#     book = Book.objects.filter(
-#             Q(book_name__icontains=query))
-    
-#     return render(request, 'librarian/dashboard.html', {'book':book})
+def updatebook(request, id):
+    if request.method == "POST":   
+       add = Book.objects.get(id=id)
+       add.book_id = request.POST["book_id"]
+       add.book_name = request.POST["book_name"]
+       add.subject = request.POST["subject"]
+       add.status = request.POST["status"]
+       add.save()
+       return redirect('dashboard')
+   
+def deletebook(request, id):
+    book = Book.objects.get(id=id)
+    book.delete()
+    return redirect('dashboard')
+   
+
     
         
