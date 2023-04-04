@@ -40,7 +40,6 @@ class IssueBook(models.Model):
         return "{}_{} book issue request".format(self.book,self.student)
     
 class ReturnBook(models.Model):
-    # user=models.ForeignKey(User,on_delete=models.CASCADE)
     book_id=models.CharField(max_length=50)
    
 

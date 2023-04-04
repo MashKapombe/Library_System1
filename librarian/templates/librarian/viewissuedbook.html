@@ -232,29 +232,29 @@
                 <th class="pl-4 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Student Name</th>
                 <th class="pl-4 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Student Id</th>
                 <th class="pl-4 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Book Name</th>
-                <th class="pl-4 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Subject</th>
+                <th class="pl-6 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Subject</th>
                 <th class="pl-4 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Issued Date</th>
                 <th class="pl-4 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Return Date</th>
                 <th class="pl-4 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Fine</th>
             </tr>
 
            
-            {% for i in li %}
-
-            <tr class="flex flex-row gap-10 justify-evenly text-[10px] pb-4 pt-2 border-b border-black text-black">
-                <td>{{i.0}}</td>
-                <td>{{i.1}}</td>
-                <td>{{i.2}}</td>
-                <td>{{i.3}}</td>
-                <td>{{i.4}}</td>
-                <td>{{i.5}}</td>
-                <td>{{i.6}}</td>   
+            {% for info in li %}
+            <tr class="flex flex-row w-full text-[10px] pb-4 pt-2 border-b border-black text-black">
+                <td class="w-full">{{info.0}}</td>
+                <td class="w-full">{{info.1}}</td>
+                <td class="w-full">{{info.2}}</td>
+                <td class="w-full">{{info.3}}</td>
+                <td class="w-full">{{info.4}}</td>
+                <td class="w-full">{{info.5}}</td>
+                <td class="self-end">{{info.6}}</td>   
             </tr>
 
             {% endfor %}
             
         </table>
       </div>
+
     </div>
   </body>
 </html>

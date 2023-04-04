@@ -124,37 +124,42 @@ def viewstudent(request):
 
 @login_required(login_url='login')
 def issuebook(request): 
-      issue = IssueBook.objects.all()
-      
-      if request.method == 'POST':
-          
-          
-          student_id = request.POST.get("student_id")
-          book_id = request.POST.get("book_id")
-          store = Book.objects.filter(book_id=book_id)
-          
-          def get_category(book):
-              
-              
-              if book.category == "Not-Issued":
-                  
+    
+    issue = IssueBook.objects.all()
+    
+    if request.method == 'POST': 
+            student_id = request.POST.get("student_id")
+            book_id = request.POST.get("book_id")
+            store = Book.objects.filter(book_id=book_id)
+            
+            
+            def get_category(book):
+                
+                if book.category == "Not-Issued":
+                    
                 # book.category == "Issued"
-                  obj = IssueBook(student_id=student_id, book_id=book_id)
-                  obj.save()
-                  book.save()     
+                    obj = IssueBook(student_id=student_id, book_id=book_id)
+                    obj.save()
+                    book.save() 
+                    
+                    
+            category_list = list(set(map(get_category, store))) 
+              
                    
-              else:
-                    
-                  messages.error(request," Book already issued !!!")
-                         
-           
-          category_list = list(set(map(get_category, store)))
-                    
-          category_list.save()
+    else:
+                     
+        messages.error(request," Book already issued !!!")
+       
+      
+        # category_list = list(set(map(get_category, store)))
+        
+        # Issue=IssueBook.objects.all()
+                  
+        # category_list.save()
                                  
-          return redirect('viewissuedbook')                    
+        #   return redirect('viewissuedbook')                    
                           
-      return render(request,'librarian/issuebook.html', {'issue':issue})
+    return render(request,'librarian/issuebook.html', {'issue':issue})
           
 @login_required(login_url='login')
 def viewissuedbook(request):
@@ -176,22 +181,23 @@ def viewissuedbook(request):
             
             day = d-15
             fine = day*10
-                
-            books = list(Book.objects.filter(book=iss.book_id))
-            students = list(Student.objects.filter(student=iss.student_id))
             
-            i=0
                 
-            for i in books: 
+        books = list(Book.objects.filter(book_id=iss.book_id))
+        students = list(Student.objects.filter(student_id=iss.student_id))
+        # print(books)
+        # print(students)
             
-                t=(students[i].student_name,students[i].student_id,books[i].book_name,books[i].subject,issue_date,expiry_date,fine)
-                    
-                i=i+1
-                    
-                li.append(t)
-                print(li)
+        i=0
                 
-                # context = {'li':li, 'issuedbooks':issuedbooks}
+        for l in books: 
+            
+            
+            t=(students[i].student_name, students[i].student_id, books[i].book_name, books[i].subject, issue_date, expiry_date, fine)
+                    
+            i=i+1
+                    
+            li.append(t)
 
     return render(request, 'librarian/viewissuedbook.html', {'li':li})
 
