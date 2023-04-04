@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .models import Book, Student, IssueBook, ReturnBook
 from datetime import datetime,timedelta,date
-from django.db.models import Q
-# from .forms import LoginForm, SignUpForm
+# from django.db.models import Q
+
 
 # Create your views here.
-
 
 def index(request):
     return render(request, 'librarian/index.html')
@@ -45,7 +45,6 @@ def signupPage(request):
         phone = request.POST['phone']
         password = request.POST['pass']
         
-
         # push to the db
         if User.objects.filter(username=username).exists():
             messages.info(request, 'username taken')
@@ -70,7 +69,7 @@ def signupPage(request):
 
     return render(request, 'librarian/signup.html')
 
-
+@login_required(login_url='login')
 def dashboard(request):
     book = Book.objects.all()
     
@@ -82,18 +81,15 @@ def dashboard(request):
     return render(request, 'librarian/dashboard.html', context)
 
 
-def signout(request):
+def signout(request):    
     logout(request)
     messages.success(request, 'logout successfully')
     return redirect('index')
 
-
-def addbook(request):
-    
+@login_required(login_url='login')
+def addbook(request):  
     # if request.session.has_key('is_logged'):
     if request.method == 'POST':
-        # user_id = request.session["user_id"]
-        # user1 = User.objects.get(id=user_id)
         book_id = request.POST["book_id"]
         book_name = request.POST["book_name"]
         subject = request.POST["subject"]
@@ -107,7 +103,7 @@ def addbook(request):
 
     return render(request, 'librarian/addbook.html')
 
-
+@login_required(login_url='login')
 def addstudent(request):
     if request.method == "POST":
         student_id = request.POST["studentid"]
@@ -120,42 +116,48 @@ def addstudent(request):
 
     return render(request, 'librarian/addstudent.html')
 
-
+@login_required(login_url='login')
 def viewstudent(request):
     student = Student.objects.all()
     
     return render(request, 'librarian/viewstudent.html', {'student':student})
 
+@login_required(login_url='login')
 def issuebook(request): 
-    if request.method == 'POST':
-        student_id = request.POST.get("student_id")
-        book_id = request.POST.get("book_id")
-        store = Book.objects.filter(book_id=book_id)
-        def get_category(book):
-            if book.category == "Not-Issued":
-                book.category == "Issued"
-                obj = IssueBook(student_id=student_id, book_id=book_id)
-                obj.save()
-                book.save()      
-                            
-            else:
-                              
-                    messages.error(request," Book already issued !!!")
-                    
-                    category_list = list(set(map(get_category, store)))
-                    
-                    category_list.save() 
-                       
-             
-                    return redirect('viewissuedbook', {'obj': obj, 'book':book})
-                              
-                          
-    return render(request,'librarian/issuebook.html')
+      issue = IssueBook.objects.all()
+      
+      if request.method == 'POST':
           
-
+          
+          student_id = request.POST.get("student_id")
+          book_id = request.POST.get("book_id")
+          store = Book.objects.filter(book_id=book_id)
+          
+          def get_category(book):
+              
+              
+              if book.category == "Not-Issued":
+                  
+                # book.category == "Issued"
+                  obj = IssueBook(student_id=student_id, book_id=book_id)
+                  obj.save()
+                  book.save()     
+                   
+              else:
+                    
+                  messages.error(request," Book already issued !!!")
+                         
+           
+          category_list = list(set(map(get_category, store)))
+                    
+          category_list.save()
+                                 
+          return redirect('viewissuedbook')                    
+                          
+      return render(request,'librarian/issuebook.html', {'issue':issue})
+          
+@login_required(login_url='login')
 def viewissuedbook(request):
-    
-    # if request.session.has_key('is_logged'):
         
     issuedbooks = IssueBook.objects.all()
     
@@ -163,8 +165,8 @@ def viewissuedbook(request):
     
     for iss in issuedbooks:
           
-        # issue_date = str(books.issue_date.day)+'-'+str(books.issue_date.month)+'-'+str(books.issue_date.year)
-        # expiry_date = str(books.expiry_date.day)+'-'+str(books.expiry_date.month)+'-'+str(books.expiry_date.year)
+        issue_date = str(iss.issue_date.day)+'-'+str(iss.issue_date.month)+'-'+str(iss.issue_date.year)
+        expiry_date = str(iss.expiry_date.day)+'-'+str(iss.expiry_date.month)+'-'+str(iss.expiry_date.year)
                 
         days = (date.today()-iss.issue_date)
         d = days.days
@@ -182,26 +184,27 @@ def viewissuedbook(request):
                 
             for i in books: 
             
-                t=(students[i].student_name,students[i].student_id,books[i].book_name,books[i].subject,issuedbooks[0].issue_date,issuedbooks[0].expiry_date,fine)
+                t=(students[i].student_name,students[i].student_id,books[i].book_name,books[i].subject,issue_date,expiry_date,fine)
                     
                 i=i+1
                     
                 li.append(t)
+                print(li)
                 
                 # context = {'li':li, 'issuedbooks':issuedbooks}
-                                  
-                # print(li)
 
-    return render(request, 'librarian/viewissuedbook.html', {'li':li, 'issuedbooks':issuedbooks})
+    return render(request, 'librarian/viewissuedbook.html', {'li':li})
 
-
+@login_required(login_url='login')
 def returnbook(request):
     return render(request, 'librarian/returnbook.html')
 
+@login_required(login_url='login')
 def editbook(request, id):
     book = Book.objects.get(id=id)
     return render(request, 'librarian/editbook.html', {'book':book}) 
 
+@login_required(login_url='login')
 def updatebook(request, id):
     if request.method == "POST":   
        add = Book.objects.get(id=id)
@@ -212,10 +215,13 @@ def updatebook(request, id):
        add.save()
        return redirect('dashboard')
    
+@login_required(login_url='login')   
 def deletebook(request, id):
     book = Book.objects.get(id=id)
     book.delete()
     return redirect('dashboard')
+
+    
    
 
     
