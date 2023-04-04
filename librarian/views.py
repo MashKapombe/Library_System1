@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .models import Book, Student, IssueBook, ReturnBook
+from datetime import datetime,timedelta,date
+from django.db.models import Q
 # from .forms import LoginForm, SignUpForm
 
 # Create your views here.
@@ -70,15 +72,13 @@ def signupPage(request):
 
 
 def dashboard(request):
-
-    # if request.session.has_key('is_logged'):
-
-    books = Book.objects.all()
+    book = Book.objects.all()
     
-    context = {
-        'books': books
-    }
-
+    if 'q' in request.GET:
+        q = request.GET['q']
+        book = Book.objects.filter(book_name__icontains=q)
+       
+    context = {'book':book}
     return render(request, 'librarian/dashboard.html', context)
 
 
@@ -126,10 +126,93 @@ def viewstudent(request):
     
     return render(request, 'librarian/viewstudent.html', {'student':student})
 
+def issuebook(request): 
+    if request.method == 'POST':
+        student_id = request.POST.get("student_id")
+        book_id = request.POST.get("book_id")
+        store = Book.objects.filter(book_id=book_id)
+        def get_category(book):
+            if book.category == "Not-Issued":
+                book.category == "Issued"
+                obj = IssueBook(student_id=student_id, book_id=book_id)
+                obj.save()
+                book.save()      
+                            
+            else:
+                              
+                    messages.error(request," Book already issued !!!")
+                    
+                    category_list = list(set(map(get_category, store)))
+                    
+                    category_list.save() 
+                       
+             
+                    return redirect('viewissuedbook', {'obj': obj, 'book':book})
+                              
+                          
+    return render(request,'librarian/issuebook.html')
+          
 
-def issuebook(request):
-    return render(request, 'librarian/issuebook')
+def viewissuedbook(request):
+    
+    # if request.session.has_key('is_logged'):
+        
+    issuedbooks = IssueBook.objects.all()
+    
+    li=[]
+    
+    for iss in issuedbooks:
+          
+        # issue_date = str(books.issue_date.day)+'-'+str(books.issue_date.month)+'-'+str(books.issue_date.year)
+        # expiry_date = str(books.expiry_date.day)+'-'+str(books.expiry_date.month)+'-'+str(books.expiry_date.year)
+                
+        days = (date.today()-iss.issue_date)
+        d = days.days
+        fine = 0
+        
+        if d > 15:
+            
+            day = d-15
+            fine = day*10
+                
+            books = list(Book.objects.filter(book=iss.book_id))
+            students = list(Student.objects.filter(student=iss.student_id))
+            
+            i=0
+                
+            for i in books: 
+            
+                t=(students[i].student_name,students[i].student_id,books[i].book_name,books[i].subject,issuedbooks[0].issue_date,issuedbooks[0].expiry_date,fine)
+                    
+                i=i+1
+                    
+                li.append(t)
+                
+                # context = {'li':li, 'issuedbooks':issuedbooks}
+                                  
+                # print(li)
+
+    return render(request, 'librarian/viewissuedbook.html', {'li':li, 'issuedbooks':issuedbooks})
 
 
 def returnbook(request):
     return render(request, 'librarian/returnbook.html')
+
+# def search(request):
+#     if 'q' in request.GET:
+#         q = request.GET['q']
+#         book = Book.objects.filter(book_name__icontains=q)
+#     else:   
+#         book = Book.objects.all()
+        
+#     context = {'book':book}
+#     return render(request, 'librarian/dashboard.html', context)
+
+# def search(request): 
+#     query = request.POST.get("query",False)
+#     book = Book.objects.filter(
+#             Q(book_name__icontains=query))
+    
+#     return render(request, 'librarian/dashboard.html', {'book':book})
+    
+        

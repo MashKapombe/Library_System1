@@ -11,7 +11,8 @@ urlpatterns = [
     path('addbook/', views.addbook, name='addbook'), 
     path('addstudent/', views.addstudent, name='addstudent'), 
     path('viewstudent/', views.viewstudent, name='viewstudent'), 
-    path('issuebook/', views.issuebook, name='issuebook'), 
+    path('issuebook/', views.issuebook, name='issuebook'),
+    path('viewissuedbook/', views.viewissuedbook, name='viewissuedbook'), 
     path('returnbook/', views.returnbook, name='returnbook'), 
     path('signout/', views.signout, name='signout'),
 ]

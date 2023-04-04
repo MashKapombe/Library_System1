@@ -12,7 +12,7 @@ class UserExtend(models.Model):
      
 class Book(models.Model): 
     # user = models.ForeignKey(User,default = 1, on_delete=models.CASCADE)
-    book_id = models.CharField(max_length=10) 
+    book_id = models.CharField(max_length=50) 
     book_name = models.CharField(max_length=50) 
     subject = models.CharField(max_length=50)
     status = models.CharField(max_length=50)
@@ -21,7 +21,7 @@ class Book(models.Model):
         return self.book_name
     
 class Student(models.Model):
-    student_id = models.CharField(max_length=10)
+    student_id = models.CharField(max_length=50)
     student_name = models.CharField(max_length=50)
     
     def __str__(self):
@@ -31,18 +31,17 @@ def expiry():
     return datetime.today() + timedelta(days=15)
 
 class IssueBook(models.Model):
-    book_id = models.ForeignKey(Book,on_delete=models.CASCADE)
-    student_id = models.ForeignKey(Student, on_delete=models.CASCADE)
+    book_id = models.CharField(max_length=50) 
+    student_id = models.CharField(max_length=50)
     issue_date = models.DateField(auto_now=True)
     expiry_date = models.DateField(default=expiry)
     
-     
     def __str__(self):
-        return self.student_id
+        return "{}_{} book issue request".format(self.book,self.student)
     
 class ReturnBook(models.Model):
     # user=models.ForeignKey(User,on_delete=models.CASCADE)
-    book_id=models.ForeignKey(Book,on_delete=models.CASCADE)
+    book_id=models.CharField(max_length=50)
    
 
     

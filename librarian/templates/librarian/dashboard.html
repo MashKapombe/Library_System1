@@ -81,6 +81,17 @@
                     </tr>
 
                     <tr class="border-b border-black hover:bg-[#063146]">
+                        <td class="py-4 text-[14px] px-2 lg:px-4"><a class="inline-flex" href="/viewissuedbook/">
+                                <svg class="w-4 h-4 inline-flex" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13">
+                                    </path>
+                                </svg>
+                                View Issued Book</a></td>
+                    </tr>
+
+                    <tr class="border-b border-black hover:bg-[#063146]">
                         <td class="py-4 text-[14px] px-2 lg:px-4"><a href="/returnbook/">
                                 <svg class="w-4 h-4 inline-flex" fill="none" stroke="currentColor" stroke-width="1.5"
                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -106,12 +117,11 @@
         </div>
 
         <div class="flex flex-col w-full">
-            <form class="flex relative justify-end ml-auto my-2 pr-2">
-                <input type="text" placeholder="search by bookid" id="query1" name="query1">
+            <form class="flex relative justify-end ml-auto my-2 pr-2" >
+                <input type="text" placeholder="search by bookname" id="q" name="q" method="GET">
                 <button class="bg-[#DDDDDD] w-30 px-2">Search</button>
             </form>
             <div class="w-full min-h-screen bg-white ">
-
                 <table class="flex justify-center w-full mt-4">
                     <tr class="grid grid-cols-6 gap-2 lg:gap-6 bg-[#0000FF] w-full text-end border-black text-white">
                         <th
@@ -134,7 +144,7 @@
                     </tr>
 
 
-                     {% for info in books %}
+                     {% for info in book %}
                     
                     <tr
                         class="grid grid-cols-6 gap-2 lg:gap-6 text-left text-[10px] py-2 border-b border-black text-black">

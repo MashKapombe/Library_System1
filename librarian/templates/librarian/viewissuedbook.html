@@ -228,29 +228,31 @@
 
       <div class="min-h-screen w-full bg-white">
         <table class="flex justify-center w-full mt-4">
-          <tr
-            class="flex flex-row bg-[#0000FF] w-full text-end border-black text-white"
-          >
-            <th
-              class="pl-20 pr-2 h-full pt-6 self-end text-[10px] border-r border-black"
-            >
-              Student Name
-            </th>
-            <th
-              class="pl-20 pr-2 h-full pt-6 self-end text-[10px] border-r border-black"
-            >
-              Student Id
-            </th>
-          </tr>
+            <tr class="flex flex-row gap-10 bg-[#0000FF] w-full text-end border-black text-white">
+                <th class="pl-4 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Student Name</th>
+                <th class="pl-4 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Student Id</th>
+                <th class="pl-4 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Book Name</th>
+                <th class="pl-4 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Subject</th>
+                <th class="pl-4 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Issued Date</th>
+                <th class="pl-4 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Return Date</th>
+                <th class="pl-4 pr-2 h-full pt-6 self-end text-[10px] border-r border-black">Fine</th>
+            </tr>
 
-          {% for student in student %}
-          <tr
-            class="flex flex-row text-[10px] pb-4 pt-2 border-b border-black text-black"
-          >
-            <td class="">{{student.student_name}}</td>
-            <td class="ml-40">{{student.student_id}}</td>
-          </tr>
-          {% endfor %}
+           
+            {% for i in li %}
+
+            <tr class="flex flex-row gap-10 justify-evenly text-[10px] pb-4 pt-2 border-b border-black text-black">
+                <td>{{i.0}}</td>
+                <td>{{i.1}}</td>
+                <td>{{i.2}}</td>
+                <td>{{i.3}}</td>
+                <td>{{i.4}}</td>
+                <td>{{i.5}}</td>
+                <td>{{i.6}}</td>   
+            </tr>
+
+            {% endfor %}
+            
         </table>
       </div>
     </div>
