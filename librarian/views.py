@@ -125,47 +125,39 @@ def viewstudent(request):
 @login_required(login_url='login')
 def issuebook(request): 
     
-    issue = IssueBook.objects.all()
+    # issue = IssueBook.objects.all()
     
-    if request.method == 'POST': 
-            student_id = request.POST.get("student_id")
-            book_id = request.POST.get("book_id")
-            store = Book.objects.filter(book_id=book_id)
-            
-            
-            def get_category(book):
-                
-                if book.category == "Not-Issued":
-                    
-                # book.category == "Issued"
-                    obj = IssueBook(student_id=student_id, book_id=book_id)
-                    obj.save()
-                    book.save() 
-                    
-                    
-            category_list = list(set(map(get_category, store))) 
+    if request.method == 'POST':
+        
+        book_id = request.POST["book_id"] 
+        student_id = request.POST["student_id"]
+              
+        store = Book.objects.filter(book_id=issue.book_id)
+              
+        def get_category(book):
+                  
+            if book.status == "Not-Issued":    
+                book.status == "Issued"
+                obj = IssueBook(student_id=student_id, book_id=book_id)
+                obj.save()
+                book.save()
+          
+                category_list = list(set(map(get_category, store))) 
+                # category_list.save()
               
                    
-    else:
-                     
-        messages.error(request," Book already issued !!!")
-       
-      
-        # category_list = list(set(map(get_category, store)))
-        
-        # Issue=IssueBook.objects.all()
-                  
-        # category_list.save()
-                                 
-        #   return redirect('viewissuedbook')                    
+    else:                 
+        # messages.error(request," Book already issued !!!") 
+        # category_list = list(set(map(get_category, store)))  
+        issue = IssueBook.objects.all()                 
                           
-    return render(request,'librarian/issuebook.html', {'issue':issue})
+        return render(request,'librarian/issuebook.html', {'issue':issue})
           
 @login_required(login_url='login')
 def viewissuedbook(request):
-        
+       
     issuedbooks = IssueBook.objects.all()
-    
+
     li=[]
     
     for iss in issuedbooks:
@@ -177,33 +169,59 @@ def viewissuedbook(request):
         d = days.days
         fine = 0
         
-        if d > 15:
-            
+        if d > 15:  
             day = d-15
             fine = day*10
             
-                
-        books = list(Book.objects.filter(book_id=iss.book_id))
+        print(d)
+                    
+        book = list(Book.objects.filter(book_id=iss.book_id))
         students = list(Student.objects.filter(student_id=iss.student_id))
-        # print(books)
-        # print(students)
-            
+    
+        print(book)
+        print(students)
+             
         i=0
                 
-        for l in books: 
-            
-            
-            t=(students[i].student_name, students[i].student_id, books[i].book_name, books[i].subject, issue_date, expiry_date, fine)
+        # for b in book: 
+                   
+        t=(students[i].student_name, students[i].student_id, book[i].book_name, book[i].subject, issue_date, expiry_date, fine)
+        print(t)
+                 
+        i=i+1
                     
-            i=i+1
-                    
-            li.append(t)
+        li.append(t)
+             
+        print(li)
 
     return render(request, 'librarian/viewissuedbook.html', {'li':li})
 
 @login_required(login_url='login')
 def returnbook(request):
-    return render(request, 'librarian/returnbook.html')
+    Return = ReturnBook.objects.all()
+    
+    if request.method == 'POST':
+        book_id =  request.POST['book_id']
+        store1 = Book.objects.filter(book_id=book_id)
+        
+        def return_book(book):
+            
+           if book.status == "Issued":
+              book.status == "NotIssued"
+           
+              obj1 = ReturnBook(book_id=book_id)
+              obj = IssueBook.objects.filter(book_id=book_id)
+           
+              obj1.save()
+              obj.delete()
+              
+        returncategorylist = list(set(map(return_book, store1)))
+           
+    else:
+                  
+        messages.error(request, "Book not issued!")                
+                
+    return render(request, 'librarian/returnbook.html', {'Return':Return})
 
 @login_required(login_url='login')
 def editbook(request, id):

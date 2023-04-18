@@ -17,8 +17,8 @@ class Book(models.Model):
     subject = models.CharField(max_length=50)
     status = models.CharField(max_length=50)
     
-    def __str__(self):
-        return self.book_name
+    def __str__(self): 
+        return self.book_name +'['+str(self.book_id)+']'
     
 class Student(models.Model):
     student_id = models.CharField(max_length=50)
@@ -37,7 +37,7 @@ class IssueBook(models.Model):
     expiry_date = models.DateField(default=expiry)
     
     def __str__(self):
-        return "{}_{} book issue request".format(self.book,self.student)
+        return self.student_name 
     
 class ReturnBook(models.Model):
     book_id=models.CharField(max_length=50)
